@@ -1,20 +1,16 @@
 export default function ArticleCard({ article }) {
-  const { title, author, article_img_url, comment_count, votes, topic } =
-    article;
-
   return (
     <li className="article-card">
       <div className="article-card-header">
-        <p className="title">{title}</p>
-        <p className="author">posted by: {author}</p>
+        <p>{article.title}</p>
+        <p>posted by: {article.author}</p>
       </div>
-      {article_img_url && (
-        <img className="article-card-img" src={article_img_url} alt={title} />
-      )}
+      <img className="article-card-img" src={article.article_img_url} />
+      <p>{article.body}</p>
       <div className="article-card-footer">
-        <p>comments: {comment_count}</p>
-        <p>votes: {votes}</p>
-        <p>topic: {topic}</p>
+        <p>{article.comment_count} comments</p>
+        <p>{article.votes} votes</p>
+        <p>topic: {article.topic}</p>
       </div>
     </li>
   );
