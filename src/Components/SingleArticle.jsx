@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import ArticleCard from "./ArticleCard";
+import CommentCard from "./CommentCard";
+import { fetchSingleArticle } from "./api";
 
 export default function SingleArticle() {
-  const [articleInfo, setArticleInfo] = useState({});
   const { articleId } = useParams();
+  const [articleInfo, setArticleInfo] = useState({});
+  const [commentsList, setCommentsList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://nc-news-i824.onrender.com/api/articles/${articleId}`)
-      .then(({ data: { article } }) => {
-        setArticleInfo(article);
-      });
-  }, []);
+    fetchSingleArticle(articleId).then(({ article, comments }) => {
+      setArticleInfo(article);
+      setCommentsList(comments);
+    });
+  }, [articleId]);
 
-  return <ArticleCard article={articleInfo} />;
+  return (
+    <>
+      <ArticleCard article={articleInfo} />
+      <h2>Comments</h2>
+      <ul className="comments-list">
+        {commentsList.map((comment) => {
+          return <CommentCard comment={comment} key={comment.comment_id} />;
+        })}
+      </ul>
+    </>
+  );
 }

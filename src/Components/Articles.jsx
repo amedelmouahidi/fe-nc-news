@@ -4,19 +4,19 @@ import ArticleCard from "./ArticleCard";
 import ChangePage from "./SwitchPage";
 import { Link } from "react-router-dom";
 import ArticleIdContext from "../Contexts/ArticleId";
+import { fetchArticles } from "./api";
 
 export default function Articles() {
   const [articleList, setArticleList] = useState([]);
   const [page, setPage] = useState(1);
   const { setArticleId } = useContext(ArticleIdContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`https://nc-news-i824.onrender.com/api/articles?p=${page}`)
-      .then(({ data: { articles } }) => {
-        setArticleList(articles);
-        window.scrollTo(0, 0);
-      });
+    fetchArticles(page).then(({ data: { articles } }) => {
+      setArticleList(articles);
+      window.scrollTo(0, 0);
+    });
   }, [page]);
 
   return (
