@@ -30,7 +30,16 @@ export const patchArticleVotes = (articleId, voteChange) => {
 };
 
 export const postComment = (articleId, comment) => {
-  return axios.post(`https://nc-news-i824.onrender.com/api/articles/${articleId}/comments`, comment)
-    .then(response => response.data.comment);
+  return axios
+    .post(
+      `https://nc-news-i824.onrender.com/api/articles/${articleId}/comments`,
+      comment
+    )
+    .then((response) => response.data.comment);
 };
 
+export const deleteComment = (commentId) => {
+  return axios.delete(
+    `https://nc-news-i824.onrender.com/api/comments/${commentId}`
+  );
+};
