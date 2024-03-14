@@ -13,6 +13,8 @@ export default function SingleArticle() {
   const [loading, setLoading] = useState(true);
   const { signedInUser } = useContext(UserContext);
   const [commentInput, setCommentInput] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [error] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -23,17 +25,24 @@ export default function SingleArticle() {
     });
   }, [articleId]);
 
+  const BUTTON_DISABLED_DURATION = 3000;
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    setButtonDisabled(true);
+
     const body = {
       username: signedInUser.username,
       body: commentInput,
     };
     postComment(articleId, body).then((comment) => {
-      setCommentsList((currList) => {
-        return [comment, ...currList];
-      });
+      setCommentsList((currList) => [comment, ...currList]);
       setCommentInput("");
+
+      setTimeout(() => {
+        setButtonDisabled(false);
+      }, BUTTON_DISABLED_DURATION);
     });
   }
 
@@ -43,11 +52,6 @@ export default function SingleArticle() {
     <>
       <ArticleCard article={articleInfo[0]} setArticleList={setArticleInfo} />
       <h2>Comments</h2>
-      <ul className="comments-list">
-        {commentsList.map((comment) => {
-          return <CommentCard comment={comment} key={comment.comment_id} />;
-        })}
-      </ul>
       <div className="comments-list">
         <form onSubmit={handleSubmit}>
           <label htmlFor="comment-body">
@@ -64,8 +68,16 @@ export default function SingleArticle() {
             }}
             required
           ></textarea>
-          <button>Comment</button>
+          <button disabled={buttonDisabled}>Comment</button>
         </form>
+        {error && <p className="error-message">{error}</p>}
+      </div>
+      <ul className="comments-list">
+        {commentsList.map((comment) => {
+          return <CommentCard comment={comment} key={comment.comment_id} />;
+        })}
+      </ul>
+      <div className="comments-list">
         <ul>
           {commentsList.map((comment) => {
             return <CommentCard comment={comment} key={comment.comment_id} />;
