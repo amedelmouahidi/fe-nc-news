@@ -15,7 +15,7 @@ export default function ArticleCard({ article, setArticleList }) {
     setArticleList((currList) => {
       const newList = currList.map((item) => {
         if (item.article_id === +e.target.value) {
-          item.votes = item.votes + +e.target.id;
+          return { ...item, votes: item.votes + +e.target.id };
         }
         return item;
       });
@@ -40,7 +40,7 @@ export default function ArticleCard({ article, setArticleList }) {
         <p>{article.title}</p>
         <p>posted by: {article.author}</p>
       </div>
-      <img className="article-card-img" src={article.article_img_url} />
+      <img className="article-card-img" src={article.article_img_url}/>
       <p>{article.body}</p>
       <div className="article-card-footer">
         <p>{article.comment_count} comments</p>
