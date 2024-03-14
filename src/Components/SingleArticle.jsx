@@ -6,19 +6,24 @@ import { fetchSingleArticle } from "./api";
 
 export default function SingleArticle() {
   const { articleId } = useParams();
-  const [articleInfo, setArticleInfo] = useState({});
+  const [articleInfo, setArticleInfo] = useState([]);
   const [commentsList, setCommentsList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetchSingleArticle(articleId).then(({ article, comments }) => {
-      setArticleInfo(article);
+      setArticleInfo([article]);
       setCommentsList(comments);
+      setLoading(false);
     });
   }, [articleId]);
 
-  return (
+  return loading ? (
+    <h1>Loading...</h1>
+  ) : (
     <>
-      <ArticleCard article={articleInfo} />
+      <ArticleCard article={articleInfo[0]} setArticleList={setArticleInfo} />
       <h2>Comments</h2>
       <ul className="comments-list">
         {commentsList.map((comment) => {
