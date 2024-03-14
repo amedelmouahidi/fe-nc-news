@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import ArticleCard from "./ArticleCard";
 import CommentCard from "./CommentCard";
-import { fetchSingleArticle } from "./api";
+import { fetchSingleArticle, postComment } from "./api";
+import UserContext from "../Contexts/SignedInUser";
 
 export default function SingleArticle() {
   const { articleId } = useParams();
   const [articleInfo, setArticleInfo] = useState([]);
   const [commentsList, setCommentsList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { signedInUser } = useContext(UserContext);
+  const [commentInput, setCommentInput] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -18,6 +22,20 @@ export default function SingleArticle() {
       setLoading(false);
     });
   }, [articleId]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const body = {
+      username: signedInUser.username,
+      body: commentInput,
+    };
+    postComment(articleId, body).then((comment) => {
+      setCommentsList((currList) => {
+        return [comment, ...currList];
+      });
+      setCommentInput("");
+    });
+  }
 
   return loading ? (
     <h1>Loading...</h1>
@@ -30,6 +48,30 @@ export default function SingleArticle() {
           return <CommentCard comment={comment} key={comment.comment_id} />;
         })}
       </ul>
+      <div className="comments-list">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="comment-body">
+            Comment as {signedInUser.username}
+          </label>
+          <br />
+          <textarea
+            className="comment-input"
+            id="comment-body"
+            value={commentInput}
+            placeholder={`Add a comment for ${articleInfo[0].author}`}
+            onChange={(e) => {
+              setCommentInput(e.target.value);
+            }}
+            required
+          ></textarea>
+          <button>Comment</button>
+        </form>
+        <ul>
+          {commentsList.map((comment) => {
+            return <CommentCard comment={comment} key={comment.comment_id} />;
+          })}
+        </ul>
+      </div>
     </>
   );
 }

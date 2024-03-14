@@ -28,3 +28,9 @@ export const patchArticleVotes = (articleId, voteChange) => {
     { inc_votes: voteChange }
   );
 };
+
+export const postComment = (articleId, comment) => {
+  return axios.post(`https://nc-news-i824.onrender.com/api/articles/${articleId}/comments`, comment)
+    .then(response => response.data.comment);
+};
+
