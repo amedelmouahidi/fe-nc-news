@@ -1,4 +1,4 @@
-export default function SwitchPage({ setPage, page }) {
+export default function SwitchPage({ setPage, page, totalArticles }) {
   const goToPreviousPage = () => {
     if (page > 1) {
       setPage(page - 1);

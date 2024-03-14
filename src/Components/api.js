@@ -21,3 +21,10 @@ export const fetchSingleArticle = (articleId) => {
     }
   );
 };
+
+export const patchArticleVotes = (articleId, voteChange) => {
+  return axios.patch(
+    `https://nc-news-i824.onrender.com/api/articles/${articleId}`,
+    { inc_votes: voteChange }
+  );
+};
