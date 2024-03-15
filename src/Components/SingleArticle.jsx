@@ -5,6 +5,7 @@ import ArticleCard from "./ArticleCard";
 import CommentCard from "./CommentCard";
 import { fetchSingleArticle, postComment } from "./api";
 import UserContext from "../Contexts/SignedInUser";
+import Errors from "./Errors";
 
 export default function SingleArticle() {
   const { articleId } = useParams();
@@ -14,15 +15,20 @@ export default function SingleArticle() {
   const { signedInUser } = useContext(UserContext);
   const [commentInput, setCommentInput] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [error] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    fetchSingleArticle(articleId).then(({ article, comments }) => {
-      setArticleInfo([article]);
-      setCommentsList(comments);
-      setLoading(false);
-    });
+    fetchSingleArticle(articleId)
+      .then(({ article, comments }) => {
+        setArticleInfo([article]);
+        setCommentsList(comments);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError("Page not found");
+      });
   }, [articleId]);
 
   const BUTTON_DISABLED_DURATION = 3000;
@@ -36,14 +42,23 @@ export default function SingleArticle() {
       username: signedInUser.username,
       body: commentInput,
     };
-    postComment(articleId, body).then((comment) => {
-      setCommentsList((currList) => [comment, ...currList]);
-      setCommentInput("");
+    postComment(articleId, body)
+      .then((comment) => {
+        setCommentsList((currList) => [comment, ...currList]);
+        setCommentInput("");
 
-      setTimeout(() => {
+        setTimeout(() => {
+          setButtonDisabled(false);
+        }, BUTTON_DISABLED_DURATION);
+      })
+      .catch((error) => {
+        setError("Failed to post comment. Please try again later.");
         setButtonDisabled(false);
-      }, BUTTON_DISABLED_DURATION);
-    });
+      });
+  }
+
+  if (error) {
+    return <Errors />;
   }
 
   return loading ? (

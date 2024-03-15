@@ -8,6 +8,8 @@ import SingleArticle from "./Components/SingleArticle";
 import UserContext from "./Contexts/SignedInUser";
 import Topics from "./Components/Topics";
 import SingleTopic from "./Components/SingleTopic";
+import Errors from "./Components/Errors";
+
 
 
 
@@ -28,6 +30,7 @@ function App() {
           <Route path={`/articles/:articleId`} element={<SingleArticle />} />
           <Route path="/topics" element={<Topics />} />
           <Route path={`/topics/:slug`} element={<SingleTopic />} />
+          <Route path="*" element={<Errors />}/>
         </Routes>
       </UserContext.Provider>
     </>
