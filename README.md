@@ -1,13 +1,14 @@
 # Northcoders News - FE project 
 
 ## Deployed Version
-[https://nc-news-times.netlify.app](#)
+[https://nc-news-times.netlify.app](https://nc-news-times.netlify.app)
 
-## General Info
+## Project Overview
+
 This project is a social news aggregation, web content rating, and discussion website called Northcoders News. It allows users to view articles, comments, vote on articles, post comments, delete comments, view articles by topic, sort articles, and handle errors.
 
 ## Backend Repository
-[https://github.com/amedelmouahidi/be-nc-news](#)
+[https://github.com/amedelmouahidi/be-nc-news](https://github.com/amedelmouahidi/be-nc-news)
 
 ## Local Setup Instructions
 1. Clone the repository:
