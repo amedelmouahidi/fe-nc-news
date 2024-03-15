@@ -50,3 +50,17 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.menu-item {
+  margin-right: 20px;
+}
+
+.menu-item a {
+  color: black;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.heading {
+  font-size: 2em;
+}

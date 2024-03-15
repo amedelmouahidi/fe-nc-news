@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import Logo from "./logo.png";
 
 export default function Header() {
   return (
     <nav className="header">
-      <h1>NC News</h1>
+      <Link to={"/"}>
+        <img src={Logo} alt="Logo" style={{ height: "70px", width: "auto" }} />{" "}
+      </Link>
       <ul className="menu">
         <li className="menu-item">
           <Link to="/articles">Articles</Link>
