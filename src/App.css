@@ -89,7 +89,7 @@ ul {
 
 .topic-card-heading {
   font-size: xx-large;
-  margin: 0px
+  margin: 0px;
 }
 
 .article-card-img {
@@ -139,4 +139,28 @@ form {
   background-color: #c4a662;
   padding: 5px 10px;
   font-size: 14px;
+}
+
+.sort-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.sort-label {
+  font-weight: bold;
+  font-size: larger;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.sort-select {
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.order-label {
+  margin-left: 10px;
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const fetchArticles = (page) => {
-  return axios.get(`https://nc-news-i824.onrender.com/api/articles?p=${page}`);
+export const fetchArticles = (page, sortBy, orderBy) => {
+  return axios.get(`https://nc-news-i824.onrender.com/api/articles?p=${page}&sort_by=${sortBy}&order=${orderBy}`);
 };
 
 export const fetchSingleArticle = (articleId) => {
