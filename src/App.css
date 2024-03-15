@@ -73,6 +73,25 @@ ul {
   padding: 10px;
 }
 
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  margin: 10px;
+  border: solid black;
+  list-style: none;
+  border: 2px black solid;
+  border-radius: 10px;
+  background-color: #e4d5b7;
+  color: black;
+  padding: 10px;
+}
+
+.topic-card-heading {
+  font-size: xx-large;
+  margin: 0px
+}
+
 .article-card-img {
   max-width: 500px;
   max-width: 90%;
