@@ -43,3 +43,12 @@ export const deleteComment = (commentId) => {
     `https://nc-news-i824.onrender.com/api/comments/${commentId}`
   );
 };
+
+export const getTopics = () => {
+  return axios.get("https://nc-news-i824.onrender.com/api/topics");
+};
+
+
+export const getArticlesByTopic = (topicSlug) => {
+  return axios.get(`https://nc-news-i824.onrender.com/api/topics/${topicSlug}`);
+};

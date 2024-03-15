@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import Articles from "./Components/Articles";
 import SingleArticle from "./Components/SingleArticle";
 import UserContext from "./Contexts/SignedInUser";
+import Topics from "./Components/Topics";
+import SingleTopic from "./Components/SingleTopic";
+
+
 
 function App() {
   const [signedInUser, setSignedInUser] = useState({
@@ -22,6 +26,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/articles" element={<Articles />} />
           <Route path={`/articles/:articleId`} element={<SingleArticle />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path={`/topics/:slug`} element={<SingleTopic />} />
         </Routes>
       </UserContext.Provider>
     </>
